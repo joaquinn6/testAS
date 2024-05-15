@@ -1,4 +1,4 @@
-'''importaciones'''
+'''Modulo de principal'''
 from utils import string_to_json, valid_format, higher_absolute_value, percent_of
 
 
@@ -20,8 +20,11 @@ def generate_bar_code():
 
 
 def make_tuples_percents(data: dict) -> list:
-  '''Recibe un objeto de clave:valor donde valor es siempre un float y 
-  lo transforma en una lista de tuplas con el valor convertido en porcentaje'''
+  '''Crea tuplas (etiqueta, porcentaje) a partir de un diccionario
+    Argumentos:
+      data: objeto de clave:valor donde valor es siempre un float
+    Devuelve: Lista de tuplas con el valor convertido en porcentaje
+  '''
   bars = []
   biggest_value = higher_absolute_value(data)
   for item in data.items():

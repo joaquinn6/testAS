@@ -1,4 +1,4 @@
-'''importaciones'''
+'''Modulo de utilidades'''
 import json
 
 
