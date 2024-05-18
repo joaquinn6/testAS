@@ -67,7 +67,6 @@ def fill_with_empty_spaces(size: int, line: str) -> str:
   Devuelve:
     String con espacios complementados
   '''
-  if len(line) < size:
-    while len(line) < size:
-      line = f'{line} '
+  while len(line) < size:
+    line = f'{line} '
   return line
