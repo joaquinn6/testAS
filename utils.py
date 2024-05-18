@@ -41,8 +41,8 @@ def higher_absolute_value(data: dict) -> float:
   Devuelve:
     Un numero flotante que representa el valor absoluto más alto
   '''
-  valor_absoluto_maximo = max(abs(item[1]) for item in data.items())
-  return valor_absoluto_maximo
+  valor_absoluto_max = max(abs(item[1]) for item in data.items())
+  return valor_absoluto_max
 
 
 def percent_of(value: float, percent_100: float) -> float:
@@ -56,3 +56,18 @@ def percent_of(value: float, percent_100: float) -> float:
   '''
   porcentaje = value * 100 / percent_100
   return round(porcentaje, 2)
+
+
+def fill_with_empty_spaces(size: int, line: str) -> str:
+  '''Complementa las lineas con espacios vacíos para
+  cumplir el tamaño requerido de ancho
+  Argumentos:
+    size: (int) Integer que nos indica el tamaño del string
+    line: (str) String que equivale a la linea de texto a complementar
+  Devuelve:
+    String con espacios complementados
+  '''
+  if len(line) < size:
+    while len(line) < size:
+      line = f'{line} '
+  return line
