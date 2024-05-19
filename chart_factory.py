@@ -43,3 +43,14 @@ class ChartFactory:
         'label': bar_tuple[0],
         'percent': abs(bar_tuple[1])
     }
+
+  def _sum_extra_line(self, lines: int, percent: float, line_value: float) -> int:
+    '''Suma una linea extra a la gráfica si el redondeo final se hace hacia abajo
+    Argumentos:
+      lines: (int) cantidad de lineas actuales por dibujar
+      percent: (float) porcentaje a dibujar
+    '''
+    decimals = (percent / line_value) - lines
+    if 0 < decimals < 0.5:
+      return lines + 1
+    return lines

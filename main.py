@@ -1,7 +1,8 @@
 '''Modulo de principal'''
 from utils import string_to_json, valid_format
 from horizontal_chart import HorizontalChart
-from vertical_chart import VerticalChart
+from vertical_chart_points import VerticalChartPoints
+from vertical_chart_asterisk import VerticalChartAsterisk
 
 
 def generate_bar_code(str_json: str):
@@ -21,8 +22,11 @@ def generate_bar_code(str_json: str):
     horizontal_chart = HorizontalChart(data)
     horizontal_chart.draw()
 
-    vertical_chart = VerticalChart(data)
-    vertical_chart.draw()
+    vertical_chart_points = VerticalChartPoints(data)
+    vertical_chart_points.draw()
+
+    vertical_chart_asterisk = VerticalChartAsterisk(data)
+    vertical_chart_asterisk.draw()
 
     return
   except Exception as exc:

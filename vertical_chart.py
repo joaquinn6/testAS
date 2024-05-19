@@ -1,9 +1,6 @@
 '''Vertical factory chart'''
-from utils import fill_with_empty_spaces as FwES
 from chart_factory import ChartFactory
-
-POINTS_PER_LINE = 10
-LINES_PER_CHART = 12
+from utils import fill_with_empty_spaces as FwES
 
 
 class VerticalChart(ChartFactory):
@@ -11,8 +8,9 @@ class VerticalChart(ChartFactory):
   Extension del ChartFactory que procesa el Chart Vertical
   '''
 
-  def __init__(self, data) -> None:
-    super().__init__(data, 'Vertical')
+  def __init__(self, data, lines_per_chart, type_chart) -> None:
+    super().__init__(data, type_chart)
+    self._lines_per_chart = lines_per_chart
 
   def _fill_with_empty_lines(self, is_positive: bool, bar_draw: list, size_line: int) -> list:
     '''Rellena de caracteres vacíos el espacio sobrante
@@ -24,13 +22,13 @@ class VerticalChart(ChartFactory):
       Una lista ordenada de como se imprimirá la barra con espacios
     '''
     size = len(bar_draw)
-    if size != LINES_PER_CHART:
-      for _ in range(LINES_PER_CHART-size):
+    if size != self._lines_per_chart:
+      for _ in range(self._lines_per_chart-size):
         if is_positive:
           bar_draw.insert(0, FwES(size_line, ''))
         else:
           bar_draw.append(FwES(size_line, ''))
-    for _ in range(LINES_PER_CHART) if is_positive else range(11):
+    for _ in range(self._lines_per_chart) if is_positive else range(self._lines_per_chart - 1):
       if is_positive:
         bar_draw.append(FwES(size_line, ''))
       else:
@@ -38,44 +36,9 @@ class VerticalChart(ChartFactory):
 
     return bar_draw
 
-  def _get_lines(self, list_bars):
+  def _get_lines(self, list_bars, max_lines_per_chart):
     '''Crea un array de strings para dibujar la gráfica de barra
     uniendo todas las barras por indice.
     '''
-    for i in range(23):
+    for i in range(max_lines_per_chart):
       self._bar_draws.append(''.join(bar_draw[i-1] for bar_draw in list_bars))
-
-  def draw(self) -> None:
-    '''Crea un array de strings para dibujar la gráfica de barra.
-    '''
-    list_bar_draws = []
-    for bar_tuple in self._tuples:
-      is_positive, label, percent = self._get_tuple_info(bar_tuple).values()
-      size_line = 12 if len(label) <= POINTS_PER_LINE else len(label) + 2
-      bar_draw = [FwES(size_line, f' {label}')]
-      if percent >= POINTS_PER_LINE:
-        lines = int(round(percent / POINTS_PER_LINE, 0))
-        for _ in range(lines):
-          if is_positive:
-            bar_draw.insert(0, FwES(size_line, ' .......... '))
-          else:
-            bar_draw.append(FwES(size_line, ' .......... '))
-      points = int(round(percent % POINTS_PER_LINE, 0))
-      if points >= 1:
-        line = ' '
-        while points != 0:
-          line = f'{line}.'
-          points -= 1
-
-        if is_positive:
-          bar_draw.insert(0, FwES(size_line, line))
-        else:
-          bar_draw.append(FwES(size_line, line))
-      if is_positive:
-        bar_draw.insert(0, FwES(size_line, f' {percent}%'))
-      else:
-        bar_draw.append(FwES(size_line, f' -{percent}%'))
-      bar_draw = self._fill_with_empty_lines(is_positive, bar_draw, size_line)
-      list_bar_draws.append(bar_draw)
-    self._get_lines(list_bar_draws)
-    self._print_charts()
