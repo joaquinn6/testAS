@@ -31,6 +31,5 @@ def generate_bar_code(str_json: str):
 
 print('Ingrese un json valido:')
 string_json = input()
-'{ "enero": 15.5, "febrero": 16.8, "marzo": -18.5,"abril": "-22.4", "mayo": 5, "junio": 74.8, "julio": 58.8, "agosto": 2.9, "septiembre":15.3, "octubre": 33.4, "noviembre": 12.9, "diciembre": 1}'
 
 generate_bar_code(string_json)

@@ -20,6 +20,17 @@ class HorizontalChart(ChartFactory):
     lens_labels = [len(tuple[0]) for tuple in self._tuples]
     return max(lens_labels)
 
+  def _sum_extra_line(self, lines: int, percent: float) -> int:
+    '''Suma una linea extra a la gráfica si el redondeo final se hace hacia abajo
+    Argumentos:
+      lines: (int) cantidad de lineas actuales por dibujar
+      percent: (float) porcentaje a dibujar
+    '''
+    decimals = round(percent / 2.5, 1) - lines
+    if 0 < decimals < 0.5:
+      return lines + 1
+    return lines
+
   def draw(self) -> None:
     '''Crea un array de strings para dibujar la gráfica de barra.
     '''
@@ -28,6 +39,7 @@ class HorizontalChart(ChartFactory):
       is_positive, label, percent = self._get_tuple_info(bar_tuple).values()
       bar_chart = f'-{FwES(self._len_biggest_label, label)}-'
       lines = int(round(percent / 2.5, 0))
+      lines = self._sum_extra_line(lines, percent)
       while lines > 0:
         if is_positive:
           bar_chart = f'{bar_chart}|'
@@ -35,8 +47,10 @@ class HorizontalChart(ChartFactory):
           bar_chart = f'|{bar_chart}'
         lines -= 1
       if is_positive:
+        bar_chart = f'{bar_chart}{percent}%'
         bar_chart = f'{FwES(40,"")}{bar_chart}'
       else:
+        bar_chart = f'-{percent}%{bar_chart}'
         bar_chart = f'{FwES(42 + self._len_biggest_label,bar_chart, False)}'
 
       self._bar_draws.append(bar_chart)
