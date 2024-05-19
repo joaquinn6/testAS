@@ -1,4 +1,4 @@
-'''Vertical Chart Points'''
+'''Vertical Chart Asteriscos'''
 from vertical_chart import VerticalChart
 from utils import fill_with_empty_spaces as FwES
 
@@ -7,7 +7,7 @@ LINES_PER_CHART = 17
 
 
 class VerticalChartAsterisk(VerticalChart):
-  '''Dibuja la gráfica vertical con puntos'''
+  '''Dibuja la gráfica vertical con asteriscos'''
 
   def __init__(self, data) -> None:
     super().__init__(data, LINES_PER_CHART, 'Vertical con asteriscos')
