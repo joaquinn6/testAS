@@ -39,7 +39,7 @@ class ChartFactory:
       Devuelve: (dict) Diccionario que devuelve la información de la tuple necesaria
     '''
     return {
-        'is_positive': bar_tuple[1] > 0,
+        'is_positive': bar_tuple[1] >= 0,
         'label': bar_tuple[0],
         'percent': abs(bar_tuple[1])
     }
