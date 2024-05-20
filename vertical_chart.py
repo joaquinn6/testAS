@@ -42,3 +42,15 @@ class VerticalChart(ChartFactory):
     '''
     for i in range(max_lines_per_chart):
       self._bar_draws.append(''.join(bar_draw[i-1] for bar_draw in list_bars))
+
+  def _calculate_size_line(self, label: str, min_length: int, bar_length: int) -> int:
+    '''Calcula la longitud que debe tener la barra para que el label
+    alcance en la gráfica sin desplazar la siguiente
+    Argumentos:
+      label: (str) La etiqueta que tendrá la barra
+      min_length: (int) El tamaño mínimo que tendría la barra de ser un label corto
+      bar_length: (int) El tamaño que tiene la barra sin los espacios a los lados
+    Devuelve:
+      Un entero que indica el tamaño que debe tener la barra
+    '''
+    return min_length if len(label) <= bar_length else len(label) + 2

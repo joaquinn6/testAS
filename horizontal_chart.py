@@ -25,23 +25,30 @@ class HorizontalChart(ChartFactory):
     '''
 
     for bar_tuple in self._tuples:
-      is_positive, label, percent = self._get_tuple_info(bar_tuple).values()
-      bar_chart = f'-{FwES(self._len_biggest_label, label)}-'
-      lines = int(round(percent / 2.5, 0))
-      lines = self._sum_extra_line(lines, percent, 2.5)
-      while lines > 0:
-        if is_positive:
-          bar_chart = f'{bar_chart}|'
-        else:
-          bar_chart = f'|{bar_chart}'
-        lines -= 1
-      if is_positive:
-        bar_chart = f'{bar_chart}{percent}%'
-        bar_chart = f'{FwES(40,"")}{bar_chart}'
-      else:
-        bar_chart = f'-{percent}%{bar_chart}'
-        bar_chart = f'{FwES(42 + self._len_biggest_label,bar_chart, False)}'
-
+      bar_chart = self._create_single_line(bar_tuple)
       self._bar_draws.append(bar_chart)
-
     self._print_charts()
+
+  def _create_single_line(self, bar_tuple: tuple) -> str:
+    '''Crea la fila que representa la tuple
+      Argumentos:
+        bar_tuple: (tuple) La tuple que se va a graficar
+      Devuelve:
+        Un string que dibuja la grafica de la tuple
+    '''
+    is_positive, label, percent = self._get_tuple_info(bar_tuple).values()
+    bar_chart = f'-{FwES(self._len_biggest_label, label)}-'
+    lines = self._calculate_lines(percent, 2.5, True)
+    while lines > 0:
+      if is_positive:
+        bar_chart = f'{bar_chart}|'
+      else:
+        bar_chart = f'|{bar_chart}'
+      lines -= 1
+    if is_positive:
+      bar_chart = f'{bar_chart}{percent}%'
+      bar_chart = f'{FwES(40,"")}{bar_chart}'
+    else:
+      bar_chart = f'-{percent}%{bar_chart}'
+      bar_chart = f'{FwES(42 + self._len_biggest_label,bar_chart, False)}'
+    return bar_chart
