@@ -44,6 +44,8 @@ class VerticalChartAsterisk(VerticalChart):
     while lines > 0:
       self._add_line(bar_draw, FwES(size_line, ' ******** '), is_positive)
       lines -= 1
+
+    # Agregando los porcentajes
     self._add_line(bar_draw, FwES(
         size_line, f' {"-" if not is_positive else ""}{percent}%'), is_positive)
     bar_draw = self._fill_with_empty_lines(is_positive, bar_draw, size_line)

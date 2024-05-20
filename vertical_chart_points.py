@@ -39,16 +39,18 @@ class VerticalChartPoints(VerticalChart):
     is_positive, label, percent = self._get_tuple_info(bar_tuple).values()
     size_line = self._calculate_size_line(label, 12, POINTS_PER_LINE)
     bar_draw = [FwES(size_line, f' {label}')]
+    # Agregando las lineas enteras
     if percent >= POINTS_PER_LINE:
       lines = self._calculate_lines(percent, POINTS_PER_LINE, False)
       while lines > 0:
         self._add_line(bar_draw, FwES(size_line, ' .......... '), is_positive)
         lines -= 1
+    # Agregando los puntos de ser necesario
     points = self._calculate_points(percent)
     if points >= 1:
       self._add_line(bar_draw, FwES(
           size_line, self._get_line_individual_points(points)), is_positive)
-
+    # Agregando el porcentaje
     self._add_line(bar_draw, FwES(
         size_line, f' {"-" if not is_positive else ""}{percent}%'), is_positive)
     bar_draw = self._fill_with_empty_lines(is_positive, bar_draw, size_line)
