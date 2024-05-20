@@ -55,12 +55,14 @@ class ChartFactory:
       return lines + 1
     return lines
 
-  def _calculate_lines(self, percent: float, value_per_line: float, add_extra_lines: bool):
+  def _calculate_lines(self, percent: float, value_per_line: float, add_extra_lines: bool) -> int:
     '''Calcula la cantidad de lineas que debe tener según el porcentaje
     Argumentos:
       percent: (float) Porcentaje a graficar
       value_per_line: (float) El valor que tendrá cada linea en el chart
       add_extra_lines: (bool) Agrega la linea extra de ser necesario
+    Devuelve:
+      Un entero que representa la cantidad de lineas a graficar
     '''
     lines = int(round(percent / value_per_line, 0))
     return self._sum_extra_line(lines, percent, value_per_line) if add_extra_lines else lines
