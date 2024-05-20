@@ -32,8 +32,8 @@ class ChartFactory:
       print(bar_draw)
     print('\n')
 
-  def _get_tuple_info(self, bar_tuple: tuple) -> bool:
-    '''Retorna True si el porcentaje de la tuple es positivo
+  def _get_tuple_info(self, bar_tuple: tuple) -> dict:
+    '''Retorna La información de la tuple en un diccionario
       Argumentos:
         bar_tuple: (tuple) tuple de label,valor donde valor es siempre un float
       Devuelve: (dict) Diccionario que devuelve la información de la tuple necesaria
@@ -47,8 +47,11 @@ class ChartFactory:
   def _sum_extra_line(self, lines: int, percent: float, line_value: float) -> int:
     '''Suma una linea extra a la gráfica si el redondeo final se hace hacia abajo
     Argumentos:
-      lines: (int) cantidad de lineas actuales por dibujar
+      lines: (int) cantidad de líneas actuales por dibujar
       percent: (float) porcentaje a dibujar
+      line_value: (float) valor que tiene cada linea
+    Devuelve:
+      Un entero que determina la cantidad de líneas totales a graficar
     '''
     decimals = (percent / line_value) - lines
     if 0 < decimals < 0.5:
@@ -56,13 +59,13 @@ class ChartFactory:
     return lines
 
   def _calculate_lines(self, percent: float, value_per_line: float, add_extra_lines: bool) -> int:
-    '''Calcula la cantidad de lineas que debe tener según el porcentaje
+    '''Calcula la cantidad de líneas que debe tener según el porcentaje
     Argumentos:
       percent: (float) Porcentaje a graficar
       value_per_line: (float) El valor que tendrá cada linea en el chart
       add_extra_lines: (bool) Agrega la linea extra de ser necesario
     Devuelve:
-      Un entero que representa la cantidad de lineas a graficar
+      Un entero que representa la cantidad de líneas a graficar
     '''
     lines = int(round(percent / value_per_line, 0))
     return self._sum_extra_line(lines, percent, value_per_line) if add_extra_lines else lines

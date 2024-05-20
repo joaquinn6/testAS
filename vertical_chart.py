@@ -36,9 +36,14 @@ class VerticalChart(ChartFactory):
 
     return bar_draw
 
-  def _get_lines(self, list_bars, max_lines_per_chart):
+  def _get_lines(self, list_bars: list, max_lines_per_chart: int) -> list:
     '''Crea un array de strings para dibujar la gráfica de barra
     uniendo todas las barras por indice.
+    Argumentos:
+      list_bars: (list) lista totales de barras a graficar
+      max_lines_per_chart: (int) entero de cantidad de lineas totales por barra
+    Devuelve:
+      Una lista unificada de las barras lista para imprimir
     '''
     for i in range(max_lines_per_chart):
       self._bar_draws.append(''.join(bar_draw[i-1] for bar_draw in list_bars))

@@ -59,7 +59,7 @@ def percent_of(value: float, percent_100: float) -> float:
 
 
 def fill_with_empty_spaces(size: int, line: str, right: bool = True) -> str:
-  '''Complementa las lineas con espacios vacíos para
+  '''Complementa las líneas con espacios vacíos para
   cumplir el tamaño requerido de ancho
   Argumentos:
     size: (int) Integer que nos indica el tamaño del string
