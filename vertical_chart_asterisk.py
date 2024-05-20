@@ -42,15 +42,9 @@ class VerticalChartAsterisk(VerticalChart):
 
     lines = self._calculate_lines(percent, 6.67, True)
     while lines > 0:
-      if is_positive:
-        bar_draw.insert(0, FwES(size_line, ' ******** '))
-      else:
-        bar_draw.append(FwES(size_line, ' ******** '))
+      self._add_line(bar_draw, FwES(size_line, ' ******** '), is_positive)
       lines -= 1
-    if is_positive:
-      bar_draw.insert(0, FwES(size_line, f' {percent}%'))
-    else:
-      bar_draw.append(FwES(size_line, f' -{percent}%'))
-
+    self._add_line(bar_draw, FwES(
+        size_line, f' {"-" if not is_positive else ""}{percent}%'), is_positive)
     bar_draw = self._fill_with_empty_lines(is_positive, bar_draw, size_line)
     return bar_draw

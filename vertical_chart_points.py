@@ -42,25 +42,15 @@ class VerticalChartPoints(VerticalChart):
     if percent >= POINTS_PER_LINE:
       lines = self._calculate_lines(percent, POINTS_PER_LINE, False)
       while lines > 0:
-        if is_positive:
-          bar_draw.insert(0, FwES(size_line, ' .......... '))
-        else:
-          bar_draw.append(FwES(size_line, ' .......... '))
+        self._add_line(bar_draw, FwES(size_line, ' .......... '), is_positive)
         lines -= 1
     points = self._calculate_points(percent)
     if points >= 1:
-      line = ' '
-      while points != 0:
-        line = f'{line}.'
-        points -= 1
-      if is_positive:
-        bar_draw.insert(0, FwES(size_line, line))
-      else:
-        bar_draw.append(FwES(size_line, line))
-    if is_positive:
-      bar_draw.insert(0, FwES(size_line, f' {percent}%'))
-    else:
-      bar_draw.append(FwES(size_line, f' -{percent}%'))
+      self._add_line(bar_draw, FwES(
+          size_line, self._get_line_individual_points(points)), is_positive)
+
+    self._add_line(bar_draw, FwES(
+        size_line, f' {"-" if not is_positive else ""}{percent}%'), is_positive)
     bar_draw = self._fill_with_empty_lines(is_positive, bar_draw, size_line)
     return bar_draw
 
@@ -72,3 +62,15 @@ class VerticalChartPoints(VerticalChart):
       Un entero que representa la cantidad de puntos a dibujar
     '''
     return int(round(percent % POINTS_PER_LINE, 0))
+
+  def _get_line_individual_points(self, points: int) -> str:
+    '''Retorna una linea con la cantidad de puntos que debe llevar la linea
+    Argumentos: 
+      points: (int) Cantidad de puntos que lleva la linea
+    Devuelve:
+      La linea en formato string'''
+    line = ' '
+    while points != 0:
+      line = f'{line}.'
+      points -= 1
+    return line

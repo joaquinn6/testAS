@@ -59,3 +59,15 @@ class VerticalChart(ChartFactory):
       Un entero que indica el tamaño que debe tener la barra
     '''
     return min_length if len(label) <= bar_length else len(label) + 2
+
+  def _add_line(self, bar_draw: list, str_line: str, is_positive: bool):
+    '''Agrega la linea al principio o al final según el porcentaje sea positivo o negativo
+    Argumentos:
+      bar_draw: (list) lista de lineas a la que se agregara la nueva
+      str_line: (str) linea a agregar
+      is_positivo: (bool) booleano que determina la dirección donde se insertara 
+    '''
+    if is_positive:
+      bar_draw.insert(0, str_line)
+    else:
+      bar_draw.append(str_line)
