@@ -36,7 +36,7 @@ class VerticalChart(ChartFactory):
 
     return bar_draw
 
-  def _get_lines(self, list_bars: list, max_lines_per_chart: int) -> list:
+  def _join_lines(self, list_bars: list, max_lines_per_chart: int) -> list:
     '''Crea un array de strings para dibujar la gráfica de barra
     uniendo todas las barras por indice.
     Argumentos:
@@ -48,8 +48,8 @@ class VerticalChart(ChartFactory):
     for i in range(max_lines_per_chart):
       self._bar_draws.append(''.join(bar_draw[i-1] for bar_draw in list_bars))
 
-  def _calculate_size_line(self, label: str, min_length: int, bar_length: int) -> int:
-    '''Calcula la longitud que debe tener la barra para que el label
+  def _calculate_width_size_line(self, label: str, min_length: int, bar_length: int) -> int:
+    '''Calcula la longitud en ancho que debe tener la barra para que el label
     alcance en la gráfica sin desplazar la siguiente
     Argumentos:
       label: (str) La etiqueta que tendrá la barra

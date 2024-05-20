@@ -16,7 +16,7 @@ class VerticalChartAsterisk(VerticalChart):
     '''Crea un array de strings para dibujar la gráfica de barra.
     '''
     list_bar_draws = self._create_bar_draws()
-    self._get_lines(list_bar_draws, 33)
+    self._join_lines(list_bar_draws, 33)
     self._print_charts()
 
   def _create_bar_draws(self) -> list:
@@ -37,7 +37,7 @@ class VerticalChartAsterisk(VerticalChart):
         Una lista de strings que dibuja la grafica de la tuple
     '''
     is_positive, label, percent = self._get_tuple_info(bar_tuple).values()
-    size_line = self._calculate_size_line(label, 10, ASTERISK_PER_LINE)
+    size_line = self._calculate_width_size_line(label, 10, ASTERISK_PER_LINE)
     bar_draw = [FwES(size_line, f' {label}')]
 
     lines = self._calculate_lines(percent, 6.67, True)
