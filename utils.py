@@ -41,8 +41,8 @@ def higher_absolute_value(data: dict) -> float:
   Devuelve:
     Un numero flotante que representa el valor absoluto más alto
   '''
-  valor_absoluto_max = max(abs(item[1]) for item in data.items())
-  return valor_absoluto_max
+  abs_max_value = max(abs(item[1]) for item in data.items())
+  return abs_max_value
 
 
 def percent_of(value: float, percent_100: float) -> float:
@@ -54,8 +54,8 @@ def percent_of(value: float, percent_100: float) -> float:
     Un número flotante que representa el porcentaje del `value` en relación al `percent_100`
     redondeado a 2 decimales.
   '''
-  porcentaje = value * 100 / percent_100
-  return round(porcentaje, 2)
+  percent = value * 100 / percent_100
+  return round(percent, 2)
 
 
 def fill_with_empty_spaces(size: int, line: str, right: bool = True) -> str:
